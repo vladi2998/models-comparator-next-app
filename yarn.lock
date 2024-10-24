@@ -19,10 +19,10 @@
     "@ai-sdk/provider-utils" "1.0.20"
     json-schema "0.4.0"
 
-"@ai-sdk/mistral@^0.0.42":
-  version "0.0.42"
-  resolved "https://registry.yarnpkg.com/@ai-sdk/mistral/-/mistral-0.0.42.tgz#0b32099f1583eff8ddc3ff49cba4ffec27a9a64f"
-  integrity sha512-wvtvfXJcyOAWNuc3ZaWogIcTfKyHLw7sudzzyGYb7jHQgZRRlrythuMeoR9OcC4USEKE2xgYyAQ/JF31TZUPKw==
+"@ai-sdk/mistral@^0.0.44":
+  version "0.0.44"
+  resolved "https://registry.yarnpkg.com/@ai-sdk/mistral/-/mistral-0.0.44.tgz#c1674700cd0a94384c70d6bb9ce48c35a04bab89"
+  integrity sha512-CXDIx3a+TAiFNjjU/yxs4LEyyRTpMY4dkJj07BEchPCBdgDJ67/8GZ0t1g+tZqCuuxmKY2F3bBg5Gj2jRZWt0g==
   dependencies:
     "@ai-sdk/provider" "0.0.24"
     "@ai-sdk/provider-utils" "1.0.20"
@@ -3058,3 +3058,8 @@ zod-to-json-schema@3.23.2:
   version "3.23.2"
   resolved "https://registry.yarnpkg.com/zod-to-json-schema/-/zod-to-json-schema-3.23.2.tgz#bc7e379c8050462538383e382964c03d8fe008f9"
   integrity sha512-uSt90Gzc/tUfyNqxnjlfBs8W6WSGpNBv0rVsNxP/BVSMHMKGdthPYff4xtCHYloJGM0CFxFsb3NbC0eqPhfImw==
+
+zod@^3.23.8:
+  version "3.23.8"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.8.tgz#e37b957b5d52079769fb8097099b592f0ef4067d"
+  integrity sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==

@@ -10,6 +10,7 @@ import mistralImg from "@/public/webp/mistral.webp";
 import nvidiaImg from "@/public/webp/nvidia.webp";
 import openaiImg from "@/public/webp/openai.webp";
 import { Label } from "./ui/label";
+import { useRouter } from "next/navigation";
 
 type modelItem = {
   id: number;
@@ -18,9 +19,10 @@ type modelItem = {
 
 export function InitialForm() {
   const [selectedModels, setSelectedModels] = useState<modelItem[]>([]);
-
+  const router = useRouter();
   function onSubmit() {
     console.log(selectedModels);
+    router.push("/comparator");
   }
 
   const handleClick = (model: modelItem) => {
