@@ -1,20 +1,29 @@
-import { createMistral } from "@ai-sdk/mistral";
-import { generateText } from "ai";
+"use client";
 
-const mistral = createMistral({
-  baseURL: "https://api.mistral.ai/v1",
-  apiKey: process.env.MISTRAL_API_KEY,
-});
+import { useChat } from "ai/react";
 
-export default async function Comparator() {
-  const model = mistral("pixtral-12b-2409", {
-    safePrompt: false, // optional safety prompt injection
-  });
-  const { text } = await generateText({
-    model: model,
-    prompt: "What does the love mean?",
-  });
+export default function Chat() {
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
+  return (
+    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
+      {messages.map((m) => (
+        <div key={m.id} className="whitespace-pre-wrap">
+          {m.role === "user" ? "User: " : "AI: "}
+          {m.content}
+        </div>
+      ))}
 
-  console.log(text);
-  return <div>Comparator page...</div>;
+      <form
+        onSubmit={handleSubmit}
+        className="fixed bottom-0 w-full max-w-md mb-8 border border-gray-300 rounded shadow-xl"
+      >
+        <input
+          className="w-full p-2"
+          value={input}
+          placeholder="Say something..."
+          onChange={handleInputChange}
+        />
+      </form>
+    </div>
+  );
 }
