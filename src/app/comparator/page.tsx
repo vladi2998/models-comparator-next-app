@@ -1,6 +1,11 @@
 "use client";
 
 import ChatBody from "@/components/chat/ChatBody";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 import { useChat } from "ai/react";
 import { useCallback } from "react";
 
@@ -24,16 +29,20 @@ export default function Chat() {
     [handleSubmit],
   );
   return (
-    <div className="flex flex-wrap w-full">
-      {[0, 1, 2, 3].map((c) => (
-        <ChatBody
-          key={c}
-          messages={messages}
-          input={input}
-          handleInputChange={memoizedHandleInputChange}
-          handleSubmit={memoizedHandleSubmit}
-        />
+    <ResizablePanelGroup direction="horizontal">
+      {[0, 1, 2, 3, 4, 5].map((c) => (
+        <>
+          <ResizablePanel key={c}>
+            <ChatBody
+              messages={messages}
+              input={input}
+              handleInputChange={memoizedHandleInputChange}
+              handleSubmit={memoizedHandleSubmit}
+            />
+          </ResizablePanel>
+          <ResizableHandle />
+        </>
       ))}
-    </div>
+    </ResizablePanelGroup>
   );
 }
