@@ -9,6 +9,19 @@ const ChatInput = ({
   handleInputChange,
   handleSubmit,
 }: ChatInputProps) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      const syntheticEvent = new Event("submit", {
+        bubbles: true,
+        cancelable: true,
+      });
+      handleSubmit(
+        syntheticEvent as unknown as React.FormEvent<HTMLFormElement>,
+      );
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex items-end space-x-2">
@@ -17,6 +30,7 @@ const ChatInput = ({
           placeholder="Say something..."
           onChange={handleInputChange}
           className="flex-grow"
+          onKeyDown={handleKeyDown}
         />
         <div className="flex space-x-2">
           <Button

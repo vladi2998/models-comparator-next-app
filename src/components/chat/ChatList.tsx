@@ -7,9 +7,6 @@ import { type Message } from "ai";
 
 const MessageList = ({ messages }: { messages: Message[] }) => (
   <ScrollArea className="h-[400px] pr-4">
-    {/* {messages.map((message) => (
-      <Message key={message.id} message={message} />
-    ))} */}
     {messages.map((m) => (
       <MessageComponent
         key={m.id}
@@ -30,7 +27,7 @@ const MessageComponent = ({ id, content, role, createdAt }: Message) => (
     <div
       className={`flex items-start ${role === "user" ? "flex-row-reverse" : ""}`}
     >
-      <Avatar className="w-8 h-8">
+      <Avatar className={`w-10 h-10 ${role === "user" ? "ml-2" : "mr-2"}`}>
         <AvatarImage
           src={role === "user" ? "/user-avatar.png" : "/bot-avatar.png"}
         />
@@ -38,7 +35,7 @@ const MessageComponent = ({ id, content, role, createdAt }: Message) => (
           {role === "user" ? "You" : "Model Selected (Mistral)"}
         </AvatarFallback>
       </Avatar>
-      <Card className={`max-w-[70%] ${role === "user" ? "ml-2" : "mr-2"}`}>
+      <Card className={`w-full ${role === "user" ? "ml-2" : "mr-2"}`}>
         <CardContent className="p-3">
           <p className="text-sm">{content}</p>
           <span className="text-xs text-muted-foreground mt-1 block">
