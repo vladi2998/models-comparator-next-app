@@ -1,16 +1,18 @@
 "use client";
-import { Button } from "@/components/ui/button";
+/* Libs */
 import { useState } from "react";
-import ModelCard from "./ModelCard";
-
+import { useRouter } from "next/navigation";
+/* Components */
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import ModelCard from "@/components/ModelCard";
+/* Media */
 import anthropicImg from "@/public/webp/anthropic.webp";
 import googleImg from "@/public/webp/google.webp";
 import metaImg from "@/public/webp/meta.webp";
 import mistralImg from "@/public/webp/mistral.webp";
 import nvidiaImg from "@/public/webp/nvidia.webp";
 import openaiImg from "@/public/webp/openai.webp";
-import { Label } from "./ui/label";
-import { useRouter } from "next/navigation";
 
 type modelItem = {
   id: number;
