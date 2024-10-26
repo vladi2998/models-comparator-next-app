@@ -5,14 +5,24 @@ import { useRouter } from "next/navigation";
 /* Components */
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Card } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import ModelCard from "@/components/ModelCard";
 /* Media */
 import anthropicImg from "@/public/webp/anthropic.webp";
 import googleImg from "@/public/webp/google.webp";
-import metaImg from "@/public/webp/meta.webp";
+import groqImg from "@/public/webp/groq.webp";
 import mistralImg from "@/public/webp/mistral.webp";
-import nvidiaImg from "@/public/webp/nvidia.webp";
+// import nvidiaImg from "@/public/webp/nvidia.webp";
 import openaiImg from "@/public/webp/openai.webp";
+import Image from "next/image";
+import CounterComponent from "./CounterComponent";
 
 type modelItem = {
   id: number;
@@ -37,63 +47,100 @@ export function InitialForm() {
     }
   };
 
-  const mockModelList = [
+  const providers = [
     {
-      name: "ChatGPT-4o",
       id: 0,
-      company: "OpenAI",
+      name: "OpenAI",
+      models: [
+        { name: "gpt-4o", id: 0 },
+        { name: "gpt-4o-mini", id: 1 },
+        { name: "gpt-4-turbo", id: 2 },
+        { name: "gpt-4", id: 3 },
+        { name: "o1-preview", id: 4 },
+        { name: "o1-mini", id: 5 },
+      ],
       icon: openaiImg,
     },
     {
-      name: "Mistral",
       id: 1,
-      company: "Mistral",
+      name: "Mistral",
+      models: [
+        { name: "mistral-large-latest", id: 6 },
+        { name: "mistral-small-latest", id: 7 },
+        { name: "pixtral-12b-2409", id: 8 },
+      ],
       icon: mistralImg,
     },
     {
-      name: "Llama3.1 8B",
       id: 2,
-      company: "Meta",
-      icon: metaImg,
-    },
-    {
-      name: "Cladue 3.5 Sonet",
-      id: 3,
-      company: "Anthropic",
+      name: "Anthropic",
+      models: [
+        { name: "claude-3-5-sonnet-20241022", id: 9 },
+        { name: "claude-3-5-sonnet-20240620", id: 10 },
+      ],
       icon: anthropicImg,
     },
     {
-      name: "Gemini-1.5",
-      id: 4,
-      company: "Google",
+      id: 3,
+      name: "Google",
+      models: [
+        { name: "gemini-1.5-flash", id: 11 },
+        { name: "gemini-1.5-pro", id: 12 },
+      ],
       icon: googleImg,
     },
     {
-      name: "Nemotron 70B",
-      id: 5,
-      company: "Nvidia",
-      icon: nvidiaImg,
+      id: 4,
+      name: "Groq",
+      models: [
+        { name: "llama-3.1-405b-reasoning", id: 13 },
+        { name: "llama-3.1-70b-versatile", id: 14 },
+        { name: "llama-3.1-8b-instant", id: 15 },
+        { name: "mixtral-8x7b-32768", id: 16 },
+        { name: "gemma2-9b-it", id: 17 },
+      ],
+      icon: groqImg,
     },
   ];
+
   return (
-    <div className="flex flex-col items-start justify-center space-y-4">
-      <Label>Please choose the models you want to compare</Label>
-      <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
-        {mockModelList.map((model, index) => (
-          <ModelCard
-            key={index}
-            {...model}
-            isSelected={selectedModels.some(
-              (selectedModel) => selectedModel.id === model.id,
-            )}
-            onClick={() => handleClick(model)}
-          />
-        ))}
+    <Card className="w-3/4 lg:w-1/2 h-3/4 p-8 flex flex-col items-start justify-around">
+      <Label className="w-full mb-8 flex items-center justify-between">
+        <p>Please choose the models you want to compare</p>
+      </Label>
+      <ScrollArea className="h-auto w-full pr-4">
+        <Accordion className="w-full h-full" type="multiple">
+          {providers.map((p) => (
+            <AccordionItem key={p.id} value={`item-${p.id}`}>
+              <AccordionTrigger>
+                <Image src={p.icon} alt={p.name} className="h-8 w-auto" />
+                {p.name}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
+                  {p.models.map((model, index) => (
+                    <ModelCard
+                      key={index}
+                      {...model}
+                      isSelected={selectedModels.some(
+                        (selectedModel) => selectedModel.id === model.id,
+                      )}
+                      onClick={() => handleClick(model)}
+                    />
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </ScrollArea>
+      <div className="mt-8 w-full flex items-center justify-between">
+        <CounterComponent number={selectedModels.length} />
+        <Button type="submit" onClick={() => onSubmit()}>
+          Go to compare
+          <span className="ml-2 text-lg">→</span>
+        </Button>
       </div>
-      <Button type="submit" onClick={() => onSubmit()}>
-        Go to compare
-        <span className="ml-2 text-lg">→</span>
-      </Button>
-    </div>
+    </Card>
   );
 }

@@ -1,14 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { Card } from "./ui/card";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 type modelItem = {
   id: number | string;
   name: string;
-  icon: string | StaticImport;
-  company?: string;
   isSelected: boolean;
   onClick: () => void;
 };
@@ -16,8 +12,6 @@ type modelItem = {
 export default function ModelCard({
   id,
   name,
-  icon,
-  company,
   isSelected,
   onClick,
 }: modelItem) {
@@ -26,12 +20,10 @@ export default function ModelCard({
   return (
     <Card
       key={id}
-      className={`realtive h-full w-full flex flex-col p-4 items-center justify-center text-center overflow-hidden ${isSelected ? "animate-in duration-100 border-2 border-black " : "animate-out duration-100"} ${hoverAnimation}`}
+      className={`realtive h-20 w-20 flex flex-col p-4 items-center justify-center text-center overflow-hidden ${isSelected ? "animate-in duration-100 border-2 border-black " : "animate-out duration-100"} ${hoverAnimation}`}
       onClick={() => onClick()}
     >
-      <Image src={icon} alt={name} width={64} height={64} />
       <h1 className="">{name}</h1>
-      <p className="text-sm text-slate-700">{company}</p>
     </Card>
   );
 }
