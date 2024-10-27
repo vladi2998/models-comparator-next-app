@@ -47,6 +47,13 @@ export function InitialForm() {
     }
   };
 
+  const getSelectedModelsByProvider = (providerIndex: number) => {
+    const { models: providerModels } = providers[providerIndex];
+    return providerModels.filter((model) =>
+      selectedModels.some((selectedModel) => selectedModel.id === model.id),
+    ).length;
+  };
+
   const providers = [
     {
       id: 0,
@@ -115,6 +122,10 @@ export function InitialForm() {
               <AccordionTrigger>
                 <Image src={p.icon} alt={p.name} className="h-8 w-auto" />
                 {p.name}
+                <CounterComponent
+                  number={getSelectedModelsByProvider(p.id)}
+                  theme="light"
+                />
               </AccordionTrigger>
               <AccordionContent>
                 <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
