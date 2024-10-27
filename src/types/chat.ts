@@ -1,4 +1,5 @@
 import { Message } from "ai";
+import { modelItem } from "./models";
 
 export type ChatInputProps = {
   input: string;
@@ -7,4 +8,5 @@ export type ChatInputProps = {
 };
 export type ChatBodyProps = ChatInputProps & {
   messages: Message[];
+  model: modelItem;
 };

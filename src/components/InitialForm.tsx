@@ -31,7 +31,9 @@ export function InitialForm() {
   const updateModels = modelsStore((state) => state.updateModels);
   const [selectedModels, setSelectedModels] = useState<modelItem[]>([]);
   const router = useRouter();
+
   function onSubmit() {
+    if (!selectedModels.length) return;
     updateModels(selectedModels);
     router.push("/comparator");
   }
@@ -116,7 +118,7 @@ export function InitialForm() {
         <p>Please choose the models you want to compare</p>
       </Label>
       <ScrollArea className="h-auto w-full pr-4">
-        <Accordion className="w-full h-full" type="multiple">
+        <Accordion className="w-full h-full" type="single">
           {providers.map((p) => (
             <AccordionItem key={p.id} value={`item-${p.id}`}>
               <AccordionTrigger>
