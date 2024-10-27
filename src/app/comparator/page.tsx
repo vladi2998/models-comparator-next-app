@@ -1,18 +1,19 @@
 "use client";
 
-import ChatBody from "@/components/chat/ChatBody";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+/* Libs */
 import { useChat } from "ai/react";
 import { useCallback } from "react";
+/* Components */
+import ChatBody from "@/components/chat/ChatBody";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import modelsStore from "@/stores/ModelsStore";
+import { modelItem } from "@/types/models";
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/mistralChat",
   });
+  const { models } = modelsStore((state) => state);
 
   // Memoize functions to render a new function when its props changes only
   const memoizedHandleInputChange = useCallback(
@@ -29,20 +30,22 @@ export default function Chat() {
     [handleSubmit],
   );
   return (
-    <ResizablePanelGroup direction="horizontal">
-      {[0, 1, 2, 3, 4, 5].map((c) => (
-        <>
-          <ResizablePanel key={c}>
+    <ScrollArea className="w-screen h-screen flex">
+      {models.length ? (
+        models.map((model: modelItem) => {
+          return (
             <ChatBody
+              key={model.id}
               messages={messages}
               input={input}
               handleInputChange={memoizedHandleInputChange}
               handleSubmit={memoizedHandleSubmit}
             />
-          </ResizablePanel>
-          <ResizableHandle />
-        </>
-      ))}
-    </ResizablePanelGroup>
+          );
+        })
+      ) : (
+        <div>Please chose at least one model...</div>
+      )}
+    </ScrollArea>
   );
 }
