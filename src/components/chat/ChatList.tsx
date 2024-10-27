@@ -4,9 +4,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { type Message } from "ai";
+import { useMemo } from "react";
+
+import mistralImg from "@/public/webp/mistral.webp";
+import Image from "next/image";
 
 const MessageList = ({ messages }: { messages: Message[] }) => (
-  <ScrollArea className="h-full pr-4">
+  <ScrollArea className="w-full h-full pr-2">
     {messages.map((m) => (
       <MessageComponent
         key={m.id}
@@ -19,32 +23,38 @@ const MessageList = ({ messages }: { messages: Message[] }) => (
   </ScrollArea>
 );
 
-const MessageComponent = ({ id, content, role, createdAt }: Message) => (
-  <div
-    key={id}
-    className={`flex ${role === "user" ? "justify-end" : "justify-start"} mb-4`}
-  >
+const MessageComponent = ({ id, content, role, createdAt }: Message) => {
+  const image = useMemo(
+    () => (role === "user" ? "https://github.com/shadcn.png" : mistralImg),
+    [role],
+  );
+
+  console.log(image);
+  return (
     <div
-      className={`flex items-start ${role === "user" ? "flex-row-reverse" : ""}`}
+      key={id}
+      className={`flex ${role === "user" ? "justify-end" : "justify-start"} mb-4`}
     >
-      <Avatar className={`w-10 h-10 ${role === "user" ? "ml-2" : "mr-2"}`}>
-        <AvatarImage
-          src={role === "user" ? "/user-avatar.png" : "/bot-avatar.png"}
-        />
-        <AvatarFallback>
-          {role === "user" ? "You" : "Model Selected (Mistral)"}
-        </AvatarFallback>
-      </Avatar>
-      <Card className={`w-full ${role === "user" ? "ml-2" : "mr-2"}`}>
-        <CardContent className="p-3">
-          <p className="text-sm">{content}</p>
-          <span className="text-xs text-muted-foreground mt-1 block">
-            {createdAt?.toDateString()}
-          </span>
-        </CardContent>
-      </Card>
+      <div
+        className={`flex items-start ${role === "user" ? "flex-row-reverse" : ""}`}
+      >
+        <Avatar className={`w-8 h-8 ${role === "user" ? "ml-2" : "mr-2"}`}>
+          <AvatarImage asChild>
+            <Image src={image} alt={`logo-${role}`} />
+          </AvatarImage>
+          <AvatarFallback>{role === "user" ? "You" : "AI"}</AvatarFallback>
+        </Avatar>
+        <Card className={`w-full ${role === "user" ? "ml-2" : "mr-2"}`}>
+          <CardContent className="p-3">
+            <p className="text-sm">{content}</p>
+            <span className="text-xs text-muted-foreground mt-1 block">
+              {createdAt?.toDateString()}
+            </span>
+          </CardContent>
+        </Card>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default MessageList;

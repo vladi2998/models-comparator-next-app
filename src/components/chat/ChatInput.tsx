@@ -36,7 +36,7 @@ const ChatInput = ({
           <Button
             variant="outline"
             size="icon"
-            aria-label="Attach audio"
+            aria-label="Attach media"
             disabled
           >
             <Paperclip className="h-4 w-4" />
