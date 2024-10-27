@@ -29,7 +29,6 @@ const MessageComponent = ({ id, content, role, createdAt }: Message) => {
     [role],
   );
 
-  console.log(image);
   return (
     <div
       key={id}
