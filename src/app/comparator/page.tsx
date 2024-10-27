@@ -5,7 +5,7 @@ import { useChat } from "ai/react";
 import { useCallback } from "react";
 /* Components */
 import ChatBody from "@/components/chat/ChatBody";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import modelsStore from "@/stores/ModelsStore";
 import { modelItem } from "@/types/models";
 
@@ -14,6 +14,7 @@ export default function Chat() {
     api: "/api/mistralChat",
   });
   const { models } = modelsStore((state) => state);
+  const isEven = models.length % 2 === 0;
 
   // Memoize functions to render a new function when its props changes only
   const memoizedHandleInputChange = useCallback(
@@ -30,10 +31,20 @@ export default function Chat() {
     [handleSubmit],
   );
   return (
-    <ScrollArea className="w-screen h-screen flex">
-      {models.length ? (
-        models.map((model: modelItem) => {
-          return (
+    <ScrollArea
+      className={`h-screen flex-grow overflow-x-auto ${isEven ? "overflow-y-hidden" : ""}`}
+    >
+      <div
+        className={`h-full grid ${isEven ? "grid-rows-2" : ""} auto-cols-[minmax(25%,1fr)]`}
+      >
+        {models.map((model: modelItem, index: number) => (
+          <div
+            key={model.id}
+            className="border border-gray-300 flex items-center justify-center"
+            style={{
+              gridRow: isEven && index >= models.length / 2 ? 2 : 1,
+            }}
+          >
             <ChatBody
               key={model.id}
               messages={messages}
@@ -41,11 +52,10 @@ export default function Chat() {
               handleInputChange={memoizedHandleInputChange}
               handleSubmit={memoizedHandleSubmit}
             />
-          );
-        })
-      ) : (
-        <div>Please chose at least one model...</div>
-      )}
+          </div>
+        ))}
+      </div>
+      <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );
 }
