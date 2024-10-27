@@ -51,6 +51,7 @@ export default function Chat() {
               input={input}
               handleInputChange={memoizedHandleInputChange}
               handleSubmit={memoizedHandleSubmit}
+              model={model}
             />
           </div>
         ))}
