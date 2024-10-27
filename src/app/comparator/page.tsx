@@ -35,12 +35,12 @@ export default function Chat() {
       className={`h-screen flex-grow overflow-x-auto ${isEven ? "overflow-y-hidden" : ""}`}
     >
       <div
-        className={`h-full grid ${isEven ? "grid-rows-2" : ""} auto-cols-[minmax(25%,1fr)]`}
+        className={`h-full flex xl:grid ${isEven ? "grid-rows-2" : ""} xl:auto-cols-[minmax(25%,1fr)]`}
       >
         {models.map((model: modelItem, index: number) => (
           <div
             key={model.id}
-            className="border border-gray-300 flex items-center justify-center"
+            className="border border-gray-300 flex items-center justify-center min-w-96 sm:min-w-[30rem] xl:min-w-auto"
             style={{
               gridRow: isEven && index >= models.length / 2 ? 2 : 1,
             }}
