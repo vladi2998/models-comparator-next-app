@@ -23,6 +23,7 @@ import mistralImg from "@/public/webp/mistral.webp";
 import openaiImg from "@/public/webp/openai.webp";
 import Image from "next/image";
 import CounterComponent from "./CounterComponent";
+import { ArrowRight } from "lucide-react";
 
 type modelItem = {
   id: number;
@@ -149,7 +150,7 @@ export function InitialForm() {
         <CounterComponent number={selectedModels.length} />
         <Button type="submit" onClick={() => onSubmit()}>
           Go to compare
-          <span className="ml-2 text-lg">→</span>
+          <ArrowRight width={20} height={20} />
         </Button>
       </div>
     </Card>
