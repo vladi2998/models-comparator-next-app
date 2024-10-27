@@ -12,11 +12,11 @@ export default function ChatBody({
   handleSubmit,
 }: ChatBodyProps) {
   return (
-    <div className="w-full mx-auto p-4">
-      <Card>
-        <CardContent className="p-6">
+    <div className="w-full h-full mx-auto p-4">
+      <Card className="w-full h-full">
+        <CardContent className="w-full h-full flex flex-col items-center justify-between p-6">
           <MessageList messages={messages} />
-          <div className="mt-4">
+          <div className="w-full mt-4">
             <ChatInput
               input={input}
               handleInputChange={handleInputChange}

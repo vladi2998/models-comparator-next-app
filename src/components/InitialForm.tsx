@@ -2,6 +2,8 @@
 /* Libs */
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 /* Components */
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -14,27 +16,23 @@ import {
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ModelCard from "@/components/ModelCard";
+import CounterComponent from "@/components/CounterComponent";
+import modelsStore from "@/stores/ModelsStore";
 /* Media */
 import anthropicImg from "@/public/webp/anthropic.webp";
 import googleImg from "@/public/webp/google.webp";
 import groqImg from "@/public/webp/groq.webp";
 import mistralImg from "@/public/webp/mistral.webp";
-// import nvidiaImg from "@/public/webp/nvidia.webp";
 import openaiImg from "@/public/webp/openai.webp";
-import Image from "next/image";
-import CounterComponent from "./CounterComponent";
-import { ArrowRight } from "lucide-react";
-
-type modelItem = {
-  id: number;
-  name: string;
-};
+/* types */
+import { type modelItem } from "@/types/models";
 
 export function InitialForm() {
+  const updateModels = modelsStore((state) => state.updateModels);
   const [selectedModels, setSelectedModels] = useState<modelItem[]>([]);
   const router = useRouter();
   function onSubmit() {
-    console.log(selectedModels);
+    updateModels(selectedModels);
     router.push("/comparator");
   }
 
@@ -46,6 +44,7 @@ export function InitialForm() {
     } else {
       setSelectedModels([...selectedModels, model]);
     }
+    updateModels(selectedModels);
   };
 
   const getSelectedModelsByProvider = (providerIndex: number) => {

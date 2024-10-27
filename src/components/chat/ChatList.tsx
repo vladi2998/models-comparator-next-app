@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { type Message } from "ai";
 
 const MessageList = ({ messages }: { messages: Message[] }) => (
-  <ScrollArea className="h-[400px] pr-4">
+  <ScrollArea className="h-full pr-4">
     {messages.map((m) => (
       <MessageComponent
         key={m.id}
