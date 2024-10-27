@@ -2,6 +2,7 @@
 /* Libs */
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 /* Components */
@@ -31,9 +32,18 @@ export function InitialForm() {
   const updateModels = modelsStore((state) => state.updateModels);
   const [selectedModels, setSelectedModels] = useState<modelItem[]>([]);
   const router = useRouter();
+  const { toast } = useToast();
 
   function onSubmit() {
-    if (!selectedModels.length) return;
+    if (!selectedModels.length) {
+      toast({
+        title: "No models selected",
+        description: "Please select at least one model to compare",
+        variant: "destructive",
+        duration: 4000,
+      });
+      return;
+    }
     updateModels(selectedModels);
     router.push("/comparator");
   }
