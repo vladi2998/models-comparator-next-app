@@ -4,10 +4,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { type Message } from "ai";
-import { useMemo } from "react";
-
-import mistralImg from "@/public/webp/mistral.webp";
-import Image from "next/image";
 
 const MessageList = ({ messages }: { messages: Message[] }) => (
   <ScrollArea className="w-full h-full pr-2">
@@ -24,11 +20,6 @@ const MessageList = ({ messages }: { messages: Message[] }) => (
 );
 
 const MessageComponent = ({ id, content, role, createdAt }: Message) => {
-  const image = useMemo(
-    () => (role === "user" ? "https://github.com/shadcn.png" : mistralImg),
-    [role],
-  );
-
   return (
     <div
       key={id}
@@ -37,12 +28,12 @@ const MessageComponent = ({ id, content, role, createdAt }: Message) => {
       <div
         className={`flex items-start ${role === "user" ? "flex-row-reverse" : ""}`}
       >
-        <Avatar className={`w-8 h-8 ${role === "user" ? "ml-2" : "mr-2"}`}>
+        {/* <Avatar className={`w-8 h-8 ${role === "user" ? "ml-2" : "mr-2"}`}>
           <AvatarImage asChild>
             <Image src={image} alt={`logo-${role}`} />
           </AvatarImage>
           <AvatarFallback>{role === "user" ? "You" : "AI"}</AvatarFallback>
-        </Avatar>
+        </Avatar> */}
         <Card className={`w-full ${role === "user" ? "ml-2" : "mr-2"}`}>
           <CardContent className="p-3">
             <p className="text-sm">{content}</p>
