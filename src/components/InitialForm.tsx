@@ -103,8 +103,8 @@ export function InitialForm() {
       id: 3,
       name: "Google",
       models: [
-        { name: "gemini-1.5-flash", id: 11, disable: true },
-        { name: "gemini-1.5-pro", id: 12, disable: true },
+        { name: "gemini-1.5-flash", id: 11, disable: false },
+        { name: "gemini-1.5-pro", id: 12, disable: false },
       ],
       icon: googleImg,
     },

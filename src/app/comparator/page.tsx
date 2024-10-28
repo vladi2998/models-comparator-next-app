@@ -9,6 +9,7 @@ import modelsStore from "@/stores/ModelsStore";
 import { modelItem } from "@/types/models";
 /* Media */
 import mistralImg from "@/public/webp/mistral.webp";
+import googleImg from "@/public/webp/google.webp";
 
 export default function Chat() {
   const { models } = modelsStore((state) => state);
@@ -38,6 +39,22 @@ export default function Chat() {
   } = useChat({
     api: "/api/mistral-large-latest",
   });
+  const {
+    messages: G15PMessages,
+    input: G15PInput,
+    handleInputChange: G15PHandleInputChange,
+    handleSubmit: G15PHandleSubmit,
+  } = useChat({
+    api: "/api/gemini-1.5-pro",
+  });
+  const {
+    messages: G15FMessages,
+    input: G15FInput,
+    handleInputChange: G15FHandleInputChange,
+    handleSubmit: G15FHandleSubmit,
+  } = useChat({
+    api: "/api/gemini-1.5-flash",
+  });
 
   const mappingModels = [
     {
@@ -63,6 +80,22 @@ export default function Chat() {
       handleInputChange: MLLHandleInputChange,
       handleSubmit: MLLHandleSubmit,
       icon: mistralImg,
+    },
+    {
+      model: "gemini-1.5-pro",
+      messages: G15PMessages,
+      input: G15PInput,
+      handleInputChange: G15PHandleInputChange,
+      handleSubmit: G15PHandleSubmit,
+      icon: googleImg,
+    },
+    {
+      model: "gemini-1.5-flash",
+      messages: G15FMessages,
+      input: G15FInput,
+      handleInputChange: G15FHandleInputChange,
+      handleSubmit: G15FHandleSubmit,
+      icon: googleImg,
     },
   ];
   // // Memoize functions to render a new function when its props changes only
