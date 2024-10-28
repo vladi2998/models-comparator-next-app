@@ -7,6 +7,8 @@ import ChatBody from "@/components/chat/ChatBody";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import modelsStore from "@/stores/ModelsStore";
 import { modelItem } from "@/types/models";
+/* Media */
+import mistralImg from "@/public/webp/mistral.webp";
 
 export default function Chat() {
   const { models } = modelsStore((state) => state);
@@ -44,6 +46,7 @@ export default function Chat() {
       input: P12BInput,
       handleInputChange: P12BHandleInputChange,
       handleSubmit: P12BHandleSubmit,
+      icon: mistralImg,
     },
     {
       model: "mistral-small-latest",
@@ -51,6 +54,7 @@ export default function Chat() {
       input: MSLInput,
       handleInputChange: MSLHandleInputChange,
       handleSubmit: MSLHandleSubmit,
+      icon: mistralImg,
     },
     {
       model: "mistral-large-latest",
@@ -58,6 +62,7 @@ export default function Chat() {
       input: MLLInput,
       handleInputChange: MLLHandleInputChange,
       handleSubmit: MLLHandleSubmit,
+      icon: mistralImg,
     },
   ];
   // // Memoize functions to render a new function when its props changes only
@@ -107,6 +112,9 @@ export default function Chat() {
                   ?.handleSubmit || (() => {})
               }
               model={model}
+              icon={
+                mappingModels.find((m) => m.model === model.name)?.icon || ""
+              }
             />
           </div>
         ))}

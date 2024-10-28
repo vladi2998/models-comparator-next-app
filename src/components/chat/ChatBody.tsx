@@ -8,8 +8,6 @@ import ChatInput from "./ChatInput";
 import modelsStore from "@/stores/ModelsStore";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
-/* Media */
-import mistralImg from "@/public/webp/mistral.webp";
 
 export default function ChatBody({
   messages,
@@ -17,6 +15,7 @@ export default function ChatBody({
   handleInputChange,
   handleSubmit,
   model,
+  icon,
 }: ChatBodyProps) {
   const { toast } = useToast();
   const { models, removeModel } = modelsStore((state) => state);
@@ -43,7 +42,7 @@ export default function ChatBody({
         <CardContent className="w-full h-full flex flex-col items-center justify-center py-6 px-4">
           <div className="w-full h-auto flex items-center justify-start space-x-4">
             <Image
-              src={mistralImg}
+              src={icon}
               alt={model.name}
               className="rounded-full w-8 h-8"
             />

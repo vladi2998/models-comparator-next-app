@@ -1,5 +1,6 @@
 import { Message } from "ai";
 import { modelItem } from "./models";
+import { type StaticImageData } from "next/image";
 
 export type ChatInputProps = {
   input: string;
@@ -9,4 +10,5 @@ export type ChatInputProps = {
 export type ChatBodyProps = ChatInputProps & {
   messages: Message[];
   model: modelItem;
+  icon: string | StaticImageData;
 };
