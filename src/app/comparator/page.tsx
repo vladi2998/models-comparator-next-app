@@ -10,26 +10,71 @@ import modelsStore from "@/stores/ModelsStore";
 import { modelItem } from "@/types/models";
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/mistralChat",
-  });
   const { models } = modelsStore((state) => state);
   const isEven = models.length % 2 === 0;
 
-  // Memoize functions to render a new function when its props changes only
-  const memoizedHandleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      handleInputChange(e);
-    },
-    [handleInputChange],
-  );
+  const {
+    messages: P12BMessages,
+    input: P12BInput,
+    handleInputChange: P12BHandleInputChange,
+    handleSubmit: P12BHandleSubmit,
+  } = useChat({
+    api: "/api/pixtral-12b-2409",
+  });
+  const {
+    messages: MSLMessages,
+    input: MSLInput,
+    handleInputChange: MSLHandleInputChange,
+    handleSubmit: MSLHandleSubmit,
+  } = useChat({
+    api: "/api/mistral-small-latest",
+  });
+  const {
+    messages: MLLMessages,
+    input: MLLInput,
+    handleInputChange: MLLHandleInputChange,
+    handleSubmit: MLLHandleSubmit,
+  } = useChat({
+    api: "/api/mistral-large-latest",
+  });
 
-  const memoizedHandleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      handleSubmit(e);
+  const mappingModels = [
+    {
+      model: "pixtral-12b-2409",
+      messages: P12BMessages,
+      input: P12BInput,
+      handleInputChange: P12BHandleInputChange,
+      handleSubmit: P12BHandleSubmit,
     },
-    [handleSubmit],
-  );
+    {
+      model: "mistral-small-latest",
+      messages: MSLMessages,
+      input: MSLInput,
+      handleInputChange: MSLHandleInputChange,
+      handleSubmit: MSLHandleSubmit,
+    },
+    {
+      model: "mistral-large-latest",
+      messages: MLLMessages,
+      input: MLLInput,
+      handleInputChange: MLLHandleInputChange,
+      handleSubmit: MLLHandleSubmit,
+    },
+  ];
+  // // Memoize functions to render a new function when its props changes only
+  // const memoizedHandleInputChange = useCallback(
+  //   (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     handleInputChange(e);
+  //   },
+  //   [handleInputChange],
+  // );
+
+  // const memoizedHandleSubmit = useCallback(
+  //   (e: React.FormEvent<HTMLFormElement>) => {
+  //     handleSubmit(e);
+  //   },
+  //   [handleSubmit],
+  // );
   return (
     <ScrollArea
       className={`h-screen flex-grow overflow-x-auto ${isEven ? "overflow-y-hidden" : ""}`}
@@ -47,10 +92,21 @@ export default function Chat() {
           >
             <ChatBody
               key={model.id}
-              messages={messages}
-              input={input}
-              handleInputChange={memoizedHandleInputChange}
-              handleSubmit={memoizedHandleSubmit}
+              messages={
+                mappingModels.find((m) => m.model === model.name)?.messages ||
+                []
+              }
+              input={
+                mappingModels.find((m) => m.model === model.name)?.input || ""
+              }
+              handleInputChange={
+                mappingModels.find((m) => m.model === model.name)
+                  ?.handleInputChange || (() => {})
+              }
+              handleSubmit={
+                mappingModels.find((m) => m.model === model.name)
+                  ?.handleSubmit || (() => {})
+              }
               model={model}
             />
           </div>
