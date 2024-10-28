@@ -6,8 +6,8 @@ const mistral = createMistral({
   apiKey: process.env.MISTRAL_API_KEY,
 });
 
-//Options: "mistral-large-latest","mistral-small-latest","ministral-3b-latest","ministral-8b-latest","pixtral-12b-2409"
-const model = mistral("pixtral-12b-2409", {
+//Options
+const model = mistral("mistral-small-latest", {
   safePrompt: false, // optional safety prompt injection
 });
 // Allow streaming responses up to 30 seconds
