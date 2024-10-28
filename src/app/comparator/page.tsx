@@ -2,7 +2,6 @@
 
 /* Libs */
 import { useChat } from "ai/react";
-import { useCallback } from "react";
 /* Components */
 import ChatBody from "@/components/chat/ChatBody";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
