@@ -1,13 +1,12 @@
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { convertToCoreMessages, streamText } from "ai";
 
-const mistral = createGoogleGenerativeAI({
-  // baseURL: "https://api.mistral.ai/v1",
+const geminiPro = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_API_KEY,
 });
 
 //Options: gemini-1.5-flash, gemini-1.5-pro
-const model = mistral("gemini-1.5-pro");
+const model = geminiPro("gemini-1.5-pro");
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
