@@ -128,7 +128,7 @@ export function InitialForm() {
         <p>Please choose the models you want to compare</p>
       </Label>
       <ScrollArea className="h-auto w-full pr-4">
-        <Accordion className="w-full h-full" type="single">
+        <Accordion className="w-full h-full" type="single" collapsible>
           {providers.map((p) => (
             <AccordionItem key={p.id} value={`item-${p.id}`}>
               <AccordionTrigger>

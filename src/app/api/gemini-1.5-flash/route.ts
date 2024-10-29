@@ -11,7 +11,6 @@ const model = geminiFlas("gemini-1.5-flash");
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  console.log("geminiFlash Req", req);
   const { messages } = await req.json();
 
   const result = await streamText({
