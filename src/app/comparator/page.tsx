@@ -16,85 +16,106 @@ export default function Chat() {
   const { models } = modelsStore((state) => state);
   const isEven = models.length % 2 === 0;
 
+  //TODO: check how to handle errors correctly -> here https://sdk.vercel.ai/docs/ai-sdk-ui/error-handling
   const {
     messages: P12BMessages,
     input: P12BInput,
     handleInputChange: P12BHandleInputChange,
     handleSubmit: P12BHandleSubmit,
+    error: P12BError,
   } = useChat({
     api: "/api/pixtral-12b-2409",
+    keepLastMessageOnError: true,
   });
   const {
     messages: MSLMessages,
     input: MSLInput,
     handleInputChange: MSLHandleInputChange,
     handleSubmit: MSLHandleSubmit,
+    error: MSLError,
   } = useChat({
     api: "/api/mistral-small-latest",
+    keepLastMessageOnError: true,
   });
   const {
     messages: MLLMessages,
     input: MLLInput,
     handleInputChange: MLLHandleInputChange,
     handleSubmit: MLLHandleSubmit,
+    error: MLLError,
   } = useChat({
     api: "/api/mistral-large-latest",
+    keepLastMessageOnError: true,
   });
   const {
     messages: G15PMessages,
     input: G15PInput,
     handleInputChange: G15PHandleInputChange,
     handleSubmit: G15PHandleSubmit,
+    error: G15PError,
   } = useChat({
     api: "/api/gemini-1.5-pro",
+    keepLastMessageOnError: true,
   });
   const {
     messages: G15FMessages,
     input: G15FInput,
     handleInputChange: G15FHandleInputChange,
     handleSubmit: G15FHandleSubmit,
+    error: G15FError,
   } = useChat({
     api: "/api/gemini-1.5-flash",
+    keepLastMessageOnError: true,
   });
   const {
     messages: Claude35Sonnet1Messages,
     input: Claude35Sonnet1Input,
     handleInputChange: Claude35Sonnet1HandleInputChange,
     handleSubmit: Claude35Sonnet1HandleSubmit,
+    error: Claude35Sonnet1Error,
   } = useChat({
     api: "/api/claude-3-5-sonnet-20240620",
+    keepLastMessageOnError: true,
   });
   const {
     messages: Claude35Sonnet2Messages,
     input: Claude35Sonnet2Input,
     handleInputChange: Claude35Sonnet2HandleInputChange,
     handleSubmit: Claude35Sonnet2HandleSubmit,
+    error: Claude35Sonnet2Error,
   } = useChat({
     api: "/api/claude-3-5-sonnet-20241022",
+    keepLastMessageOnError: true,
   });
   const {
     messages: Claude3HaikuMessages,
     input: Claude3HaikuInput,
     handleInputChange: Claude3HaikuHandleInputChange,
     handleSubmit: Claude3HaikuHandleSubmit,
+    error: Claude3HaikuError,
   } = useChat({
     api: "/api/claude-3-haiku-20240307",
+    keepLastMessageOnError: true,
   });
   const {
     messages: Claude3OpusMessages,
     input: Claude3OpusInput,
     handleInputChange: Claude3OpusHandleInputChange,
     handleSubmit: Claude3OpusHandleSubmit,
+    error: Claude3OpusError,
   } = useChat({
     api: "api/claude-3-opus-20240229",
+    keepLastMessageOnError: true,
   });
   const {
     messages: Claude3SonnetMessages,
     input: Claude3SonnetInput,
     handleInputChange: Claude3SonnetHandleInputChange,
     handleSubmit: Claude3SonnetHandleSubmit,
+    error: Claude3SonnetError,
   } = useChat({
     api: "/api/claude-3-sonnet-20240229",
+    keepLastMessageOnError: true,
   });
 
   const mappingModels = [
@@ -105,6 +126,7 @@ export default function Chat() {
       handleInputChange: P12BHandleInputChange,
       handleSubmit: P12BHandleSubmit,
       icon: mistralImg,
+      error: P12BError,
     },
     {
       model: "mistral-small-latest",
@@ -113,6 +135,7 @@ export default function Chat() {
       handleInputChange: MSLHandleInputChange,
       handleSubmit: MSLHandleSubmit,
       icon: mistralImg,
+      error: MSLError,
     },
     {
       model: "mistral-large-latest",
@@ -121,6 +144,7 @@ export default function Chat() {
       handleInputChange: MLLHandleInputChange,
       handleSubmit: MLLHandleSubmit,
       icon: mistralImg,
+      error: MLLError,
     },
     {
       model: "gemini-1.5-pro",
@@ -129,6 +153,7 @@ export default function Chat() {
       handleInputChange: G15PHandleInputChange,
       handleSubmit: G15PHandleSubmit,
       icon: googleImg,
+      error: G15PError,
     },
     {
       model: "gemini-1.5-flash",
@@ -137,6 +162,7 @@ export default function Chat() {
       handleInputChange: G15FHandleInputChange,
       handleSubmit: G15FHandleSubmit,
       icon: googleImg,
+      error: G15FError,
     },
     {
       model: "claude-3-5-sonnet-20240620",
@@ -145,6 +171,7 @@ export default function Chat() {
       handleInputChange: Claude35Sonnet1HandleInputChange,
       handleSubmit: Claude35Sonnet1HandleSubmit,
       icon: anthropicImg,
+      error: Claude35Sonnet1Error,
     },
     {
       model: "claude-3-5-sonnet-20241022",
@@ -153,6 +180,7 @@ export default function Chat() {
       handleInputChange: Claude35Sonnet2HandleInputChange,
       handleSubmit: Claude35Sonnet2HandleSubmit,
       icon: anthropicImg,
+      error: Claude35Sonnet2Error,
     },
     {
       model: "claude-3-haiku-20240307",
@@ -161,6 +189,7 @@ export default function Chat() {
       handleInputChange: Claude3HaikuHandleInputChange,
       handleSubmit: Claude3HaikuHandleSubmit,
       icon: anthropicImg,
+      error: Claude3HaikuError,
     },
     {
       model: "claude-3-opus-20240229",
@@ -169,6 +198,7 @@ export default function Chat() {
       handleInputChange: Claude3OpusHandleInputChange,
       handleSubmit: Claude3OpusHandleSubmit,
       icon: anthropicImg,
+      error: Claude3OpusError,
     },
     {
       model: "claude-3-sonnet-20240229",
@@ -177,6 +207,7 @@ export default function Chat() {
       handleInputChange: Claude3SonnetHandleInputChange,
       handleSubmit: Claude3SonnetHandleSubmit,
       icon: anthropicImg,
+      error: Claude3SonnetError,
     },
   ];
   // // Memoize functions to render a new function when its props changes only
@@ -228,6 +259,9 @@ export default function Chat() {
               model={model}
               icon={
                 mappingModels.find((m) => m.model === model.name)?.icon || ""
+              }
+              error={
+                mappingModels.find((m) => m.model === model.name)?.error || ""
               }
             />
           </div>

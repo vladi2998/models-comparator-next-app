@@ -6,6 +6,7 @@ export type ChatInputProps = {
   input: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  error?: string | Error;
 };
 export type ChatBodyProps = ChatInputProps & {
   messages: Message[];

@@ -15,6 +15,7 @@ export default function ChatBody({
   handleInputChange,
   handleSubmit,
   model,
+  error,
   icon,
 }: ChatBodyProps) {
   const { toast } = useToast();
@@ -32,6 +33,8 @@ export default function ChatBody({
     }
     removeModel(model);
   };
+
+  console.log("ERROR", error);
   return (
     <div className="relative w-full h-full max-h-screen mx-auto p-4 group">
       <XCircleIcon
