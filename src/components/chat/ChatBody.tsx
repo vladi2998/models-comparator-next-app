@@ -1,5 +1,7 @@
 "use client";
-
+import { useEffect } from "react";
+import Image from "next/image";
+/* Components */
 import { Card, CardContent } from "@/components/ui/card";
 import { ChatBodyProps } from "@/types/chat";
 import { XCircleIcon } from "lucide-react";
@@ -7,7 +9,6 @@ import MessageList from "./ChatList";
 import ChatInput from "./ChatInput";
 import modelsStore from "@/stores/ModelsStore";
 import { useToast } from "@/hooks/use-toast";
-import Image from "next/image";
 
 export default function ChatBody({
   messages,
@@ -34,7 +35,18 @@ export default function ChatBody({
     removeModel(model);
   };
 
-  console.log("ERROR", error);
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: `Error with model: ${model.name}`,
+        description:
+          "An error occurred while sending the message. \nPlease check logs for more information.",
+        variant: "destructive",
+        duration: 4000,
+      });
+    }
+  }, [error, toast, model]);
+
   return (
     <div className="relative w-full h-full max-h-screen mx-auto p-4 group">
       <XCircleIcon
