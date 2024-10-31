@@ -11,6 +11,7 @@ import { modelItem } from "@/types/models";
 import mistralImg from "@/public/webp/mistral.webp";
 import googleImg from "@/public/webp/google.webp";
 import anthropicImg from "@/public/webp/anthropic.webp";
+import openaiImg from "@/public/webp/openai.webp";
 
 export default function Chat() {
   const { models } = modelsStore((state) => state);
@@ -117,6 +118,66 @@ export default function Chat() {
     api: "/api/claude-3-sonnet-20240229",
     keepLastMessageOnError: true,
   });
+  const {
+    messages: GPT3_5Messages,
+    input: GPT3_5Input,
+    handleInputChange: GPT3_5HandleInputChange,
+    handleSubmit: GPT3_5HandleSubmit,
+    error: GPT3_5Error,
+  } = useChat({
+    api: "/api/gpt-3.5-turbo",
+    keepLastMessageOnError: true,
+  });
+  const {
+    messages: GPT4Messages,
+    input: GPT4Input,
+    handleInputChange: GPT4HandleInputChange,
+    handleSubmit: GPT4HandleSubmit,
+    error: GPT4Error,
+  } = useChat({
+    api: "/api/gpt-4",
+    keepLastMessageOnError: true,
+  });
+  const {
+    messages: GPT4TurboMessages,
+    input: GPT4TurboInput,
+    handleInputChange: GPT4TurboHandleInputChange,
+    handleSubmit: GPT4TurboHandleSubmit,
+    error: GPT4TurboError,
+  } = useChat({
+    api: "/api/gpt-4-turbo",
+    keepLastMessageOnError: true,
+  });
+  const {
+    messages: GPT4oMessages,
+    input: GPT4oInput,
+    handleInputChange: GPT4oHandleInputChange,
+    handleSubmit: GPT4oHandleSubmit,
+    error: GPT4oError,
+  } = useChat({
+    api: "/api/gpt-4o",
+    keepLastMessageOnError: true,
+  });
+  const {
+    messages: GPT4oAudioPreviewMessages,
+    input: GPT4oAudioPreviewInput,
+    handleInputChange: GPT4oAudioPreviewHandleInputChange,
+    handleSubmit: GPT4oAudioPreviewHandleSubmit,
+    error: GPT4oAudioPreviewError,
+  } = useChat({
+    api: "/api/gpt-4o-audio-preview",
+    keepLastMessageOnError: true,
+  });
+  const {
+    messages: GPT4oMiniMessages,
+    input: GPT4oMiniInput,
+    handleInputChange: GPT4oMiniHandleInputChange,
+    handleSubmit: GPT4oMiniHandleSubmit,
+    error: GPT4oMiniError,
+  } = useChat({
+    api: "/api/gpt-4o-mini",
+    keepLastMessageOnError: true,
+  });
 
   const mappingModels = [
     {
@@ -208,6 +269,60 @@ export default function Chat() {
       handleSubmit: Claude3SonnetHandleSubmit,
       icon: anthropicImg,
       error: Claude3SonnetError,
+    },
+    {
+      model: "gpt-3.5-turbo",
+      messages: GPT3_5Messages,
+      input: GPT3_5Input,
+      handleInputChange: GPT3_5HandleInputChange,
+      handleSubmit: GPT3_5HandleSubmit,
+      error: GPT3_5Error,
+      icon: openaiImg,
+    },
+    {
+      model: "gpt-4",
+      messages: GPT4Messages,
+      input: GPT4Input,
+      handleInputChange: GPT4HandleInputChange,
+      handleSubmit: GPT4HandleSubmit,
+      error: GPT4Error,
+      icon: openaiImg,
+    },
+    {
+      model: "gpt-4-turbo",
+      messages: GPT4TurboMessages,
+      input: GPT4TurboInput,
+      handleInputChange: GPT4TurboHandleInputChange,
+      handleSubmit: GPT4TurboHandleSubmit,
+      error: GPT4TurboError,
+      icon: openaiImg,
+    },
+    {
+      model: "gpt-4o",
+      messages: GPT4oMessages,
+      input: GPT4oInput,
+      handleInputChange: GPT4oHandleInputChange,
+      handleSubmit: GPT4oHandleSubmit,
+      error: GPT4oError,
+      icon: openaiImg,
+    },
+    {
+      model: "gpt-4o-audio-preview",
+      messages: GPT4oAudioPreviewMessages,
+      input: GPT4oAudioPreviewInput,
+      handleInputChange: GPT4oAudioPreviewHandleInputChange,
+      handleSubmit: GPT4oAudioPreviewHandleSubmit,
+      error: GPT4oAudioPreviewError,
+      icon: openaiImg,
+    },
+    {
+      model: "gpt-4o-mini",
+      messages: GPT4oMiniMessages,
+      input: GPT4oMiniInput,
+      handleInputChange: GPT4oMiniHandleInputChange,
+      handleSubmit: GPT4oMiniHandleSubmit,
+      error: GPT4oMiniError,
+      icon: openaiImg,
     },
   ];
   // // Memoize functions to render a new function when its props changes only
