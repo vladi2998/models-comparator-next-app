@@ -11,6 +11,7 @@
   "dependencies": {
     "@ai-sdk/anthropic": "^0.0.53",
     "@ai-sdk/google": "^0.0.55",
+    "@ai-sdk/groq": "^0.0.3",
     "@ai-sdk/mistral": "^0.0.46",
     "@ai-sdk/openai": "^0.0.66",
     "@hookform/resolvers": "^3.9.0",
@@ -33,6 +34,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-resizable-panels": "^2.1.5",
+    "sharp": "^0.33.5",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
